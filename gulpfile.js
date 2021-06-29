@@ -139,8 +139,8 @@ gulp.task( 'watch', function() {
 		[
 			paths.dev + '/js/**/*.js',
 			'js/**/*.js',
-			'!js/theme.js',
-			'!js/theme.min.js',
+			'!js/child-theme.js',
+			'!js/child-theme.min.js',
 		],
 		gulp.series( 'scripts' )
 	);
@@ -181,13 +181,13 @@ gulp.task( 'watch-bs', gulp.parallel( 'browser-sync', 'watch' ) );
 // Uglifies and concat all JS files into one
 gulp.task( 'scripts', function() {
 	var scripts = [
-		// Start - All BS4 stuff
-		paths.dev + '/js/bootstrap4/bootstrap.bundle.js',
+		// Start - All BS5 stuff
+		paths.dev + '/js/bootstrap5/bootstrap.bundle.js',
 		paths.dev + '/js/themejs/*.js',
 
-		// End - All BS4 stuff
+		// End - All BS5 stuff
 
-		paths.dev + '/js/skip-link-focus-fix.js',
+		// paths.dev + '/js/skip-link-focus-fix.js',
 
 		// Adding currently empty javascript file to add on for your own themes´ customizations
 		// Please add any customizations to this .js file only!
@@ -218,18 +218,18 @@ gulp.task( 'clean-source', function() {
 
 ////////////////// All Bootstrap SASS  Assets /////////////////////////
 gulp.task( 'copy-assets', function( done ) {
-	////////////////// All Bootstrap 4 Assets /////////////////////////
+	////////////////// All Bootstrap 5 Assets /////////////////////////
 	// Copy all JS files
 	var stream = gulp
 		.src( paths.node + '/bootstrap/dist/js/**/*.js' )
-		.pipe( gulp.dest( paths.dev + '/js/bootstrap4' ) );
+		.pipe( gulp.dest( paths.dev + '/js/bootstrap5' ) );
 
 	// Copy all Bootstrap SCSS files
 	gulp
 		.src( paths.node + '/bootstrap/scss/**/*.scss' )
-		.pipe( gulp.dest( paths.dev + '/sass/bootstrap4' ) );
+		.pipe( gulp.dest( paths.dev + '/sass/bootstrap5' ) );
 
-	////////////////// End Bootstrap 4 Assets /////////////////////////
+	////////////////// End Bootstrap 5 Assets /////////////////////////
 
 	// Copy all Font Awesome Fonts
 	gulp
@@ -238,13 +238,8 @@ gulp.task( 'copy-assets', function( done ) {
 
 	// Copy all Font Awesome SCSS files
 	gulp
-		.src( paths.node + '/font-awesome/scss/*.scss' )
+		.src( paths.node + '/@fortawesome/fontawesome-free/scss/*.scss' )
 		.pipe( gulp.dest( paths.dev + '/sass/fontawesome' )	);
-
-	// Copy all Understrap SCSS files
-	gulp
-		.src( paths.node + '/understrap/scss/*.scss' )
-		.pipe( gulp.dest( paths.dev + '/sass/understrap' )	);
 
 	done();
 } );
@@ -252,8 +247,8 @@ gulp.task( 'copy-assets', function( done ) {
 // Deleting the files distributed by the copy-assets task
 gulp.task( 'clean-vendor-assets', function() {
 	return del( [
-		paths.dev + '/js/bootstrap4',
-		paths.dev + '/sass/bootstrap4',
+		paths.dev + '/js/bootstrap5',
+		paths.dev + '/sass/bootstrap5',
 		paths.fonts + '/*wesome*.{ttf,woff,woff2,eot,svg}',
 		paths.dev + '/sass/fontawesome',
 		paths.js + paths.vendor,
